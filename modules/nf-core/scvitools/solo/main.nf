@@ -4,10 +4,11 @@ process SCVITOOLS_SOLO {
     label 'process_gpu'
 
     conda "${moduleDir}/environment.yml"
-    container "${ task.ext.use_gpu ? 'docker.io/nicotru/scvitools-gpu:cuda-12' :
+    // GPU images can be found here: https://github.com/scverse/scvi-tools/pkgs/container/scvi-tools
+    container "${ task.ext.use_gpu ? 'ghcr.io/scverse/scvi-tools:py3.12-cu12-1.3.1.post1-' :
         workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/9b/9b999caba5a5a6bc19bd324d9f1ac28e092a750140b453071956ebc304b7c4aa/data':
-        'community.wave.seqera.io/library/scvi-tools:1.2.0--680d378b86801b8a' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/4b/4bdeb294d71c935691525ddc161a455b79cf5501189800da9c973f051f7442d9/data':
+        'community.wave.seqera.io/library/scvi-tools:1.3.1.post1--7cdffa676822148e' }"
 
     input:
     tuple val(meta), path(h5ad)
