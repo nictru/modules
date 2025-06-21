@@ -1,16 +1,17 @@
 nextflow_process {
 
-    name "Test Process SCVITOOLS_SOLO"
+    name "Test Process SCVITOOLS_SOLO on GPU"
     script "../main.nf"
+    config "./gpu.nextflow.config"
     process "SCVITOOLS_SOLO"
-    config "./nextflow.config"
 
     tag "modules"
     tag "modules_nfcore"
     tag "scvitools"
     tag "scvitools/solo"
+    tag "gpu"
 
-    test("solo") {
+    test("solo - GPU") {
         when {
             process {
                 """
@@ -31,7 +32,7 @@ nextflow_process {
 
     }
 
-    test("solo - stub") {
+    test("solo - GPU - stub") {
 
         options "-stub"
 
